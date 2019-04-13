@@ -27,7 +27,7 @@ class CursoController extends AbstractController
     public function getAction(Request $request, $id = null)
     {
         $data = $request->request->all();
-        $courseData = $this->getDoctrine()->getRepository('App\Entity\Course');
+        $courseData = $this->getDoctrine()->getRepository('App\Entity\Curso');
         if (is_null($id)) {
             $courseData = $courseData->findAll($data);
         } else {
@@ -67,17 +67,17 @@ class CursoController extends AbstractController
     public function putAction(Request $request)
     {
         $data = $request->request->all();
-        $course = $this->getDoctrine()->getRepository('App\Entity\Course')->find($data['id']);
-        $course->setName($data['name']);
-        $course->setWorkload($data['workload']);
+        $course = $this->getDoctrine()->getRepository('App\Entity\Curso')->find($data['id']);
+        $course->setNome($data['nome']);
+        $course->setCargaHoraria($data['carga_horaria']);
         $course->setUpdatedAt(new DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
         if (!$course) {
-            return $this->createNotFoundException('User Not Found!');
+            return $this->createNotFoundException('Curso Not Found!');
         }
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->merge($course);
         $doctrine->flush();
-        return new JsonResponse(["message" => "Usuario atualizado com sucesso."], 200);
+        return new JsonResponse(["message" => "Curso atualizado com sucesso."], 200);
     }
 
     /**

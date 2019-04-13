@@ -1,5 +1,4 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
-    prefix: /api/ceuma-challenge-api
-
+    prefix: /api/ceuma-challenge
