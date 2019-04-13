@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AlunoRepository")
+ * @ORM\Table(name="alunos") //passa pra o banco as tabelas em plural como padrão
  */
 class Aluno
 {
