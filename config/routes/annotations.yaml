@@ -1,4 +1,4 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
-    prefix: /api/ceuma-challenge
+    prefix: /api/ceuma-challenge # prefixo das rotas da aplicacao

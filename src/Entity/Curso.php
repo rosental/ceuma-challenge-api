@@ -35,14 +35,12 @@ class Curso
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create") // adiciono a hora automaticamente ao realizar a insercao
-     * @Assert\NotBlank()
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable() // adiciono a hora automaticamente ao realizar a insercao
-     * @Assert\NotBlank()
      */
     private $updated_at;
 

@@ -8,6 +8,7 @@ Minhas notas
 - Terminal aberto no projeto
 - Rodar o servidor do PHP
 - Preciso abrir o SGBD e deixar as consultas abertas
+- http://localhost:8000/api/ceuma-challenge/
 
 **Observações:**
 
@@ -28,4 +29,8 @@ Variável de requisição
 Um array que contém as informações de $GET, $POST...
 
 para criar a form 
-bin/console 
+bin/console
+
+Repository == Entity
+
+`bin/console debug:route` - mostra as rotas da API

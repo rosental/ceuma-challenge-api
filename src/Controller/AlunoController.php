@@ -94,9 +94,17 @@ class AlunoController extends AbstractController
 
         $aluno = $this->getDoctrine()->getRepository('App\Entity\Aluno')->find($data['id']);
 
+        if (!$aluno) {
+            return $this->createNotFoundException('Aluno Not Found!');
+        }
+
         $form = $this->createForm(AlunoType::class, $aluno);
 
         $form->submit($data);
+
+        if (!$form->isValid()) { // isValid pertence ao FormValidation e já tras consigo utilitarios para validacao
+            return new JsonResponse( (string) $form->getErrors(true, false), 200);
+        }
 
         // $aluno->setCpf($data['cpf']);
         // $aluno->setAddress($data['address']);
@@ -104,10 +112,6 @@ class AlunoController extends AbstractController
         // $aluno->setEmail($data['email']);
         // $aluno->setPhoneNumber($data['phone_number']);
         // $aluno->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-
-        if (!$aluno) {
-            return $this->createNotFoundException('Aluno Not Found!');
-        }
 
         $doctrine = $this->getDoctrine()->getManager();
 
