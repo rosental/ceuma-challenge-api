@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Aluno;
+use App\Form\AlunoType;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,16 +26,20 @@ class AlunoController extends AbstractController
      */
     public function getAction(Request $request, $id = null)
     {
-//        // $data = $request->request->all();
-//        $studentData = $this->getDoctrine()->getRepository('App\Entity\Student');
-//        if (is_null($id)) {
-//            $studentData = $studentData->findAll();
-//        } else {
-//            $id = (int) $id;
-//            $studentData = $studentData->find($id);
-//        }
-//        $student = SerializerBuilder::create()->build()->serialize($studentData, 'json');
-//        return new Response($student, 200, ['Content-Type' => 'application/json']);
+        // $data = $request->request->all(); // pega todos os dados que vierem da request. Aqui no caso eu trato pelo $id.
+
+        $alunoData = $this->getDoctrine()->getRepository('App\Entity\Aluno');
+
+        if (is_null($id)) {
+            $alunoData = $alunoData->findAll();
+        } else {
+            $id = (int) $id;
+            $alunoData = $alunoData->find($id);
+        }
+
+        $aluno = SerializerBuilder::create()->build()->serialize($alunoData, 'json');
+
+        return new Response($aluno, 200, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -45,23 +50,32 @@ class AlunoController extends AbstractController
      */
     public function postAction(Request $request)
     {
-//        $data = $request->request->all();
-//        $student = new Student();
-//        $form = $this->createForm(StudentType::class, $student);
-//        $form->submit($data);
-//        // $student->setName($data['name']);
-//        // $student->setCpf($data['cpf']);
-//        // $student->setAddress($data['address']);
-//        // $student->setCep($data['cep']);
-//        // $student->setEmail($data['email']);
-//        // $student->setPhoneNumber($data['phone_number']);
-//        // $student->setCourseCollection($data['course-collection']);
-//        // $student->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-//        // $student->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->persist($student);
-//        $doctrine->flush();
-//        return new JsonResponse(['msg' => 'Aluno inserido com sucesso!'], 200);
+        $data = $request->request->all();
+
+        $aluno = new Aluno();
+
+        $form = $this->createForm(AlunoType::class, $aluno);
+
+        $form->submit($data);
+
+        // Forma antiga de fazer as requests
+        // $aluno->setName($data['name']);
+        // $aluno->setCpf($data['cpf']);
+        // $aluno->setAddress($data['address']);
+        // $aluno->setCep($data['cep']);
+        // $aluno->setEmail($data['email']);
+        // $aluno->setPhoneNumber($data['phone_number']);
+        // $aluno->setCourseCollection($data['course-collection']);
+        // $aluno->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+        // $aluno->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+
+        $doctrine = $this->getDoctrine()->getManager();
+
+        $doctrine->persist($aluno);
+
+        $doctrine->flush();
+
+        return new JsonResponse(['msg' => 'Aluno inserido com sucesso!'], 200);
     }
 
     /**
@@ -72,35 +86,44 @@ class AlunoController extends AbstractController
      */
     public function putAction(Request $request)
     {
-//        $data = $request->request->all();
-//        $student = $this->getDoctrine()->getRepository('App\Entity\Student')->find($data['id']);
-//        $form = $this->createForm(StudentType::class, $student);
-//        $form->submit($data);
-//        // $student->setCpf($data['cpf']);
-//        // $student->setAddress($data['address']);
-//        // $student->setCep($data['cep']);
-//        // $student->setEmail($data['email']);
-//        // $student->setPhoneNumber($data['phone_number']);
-//        // $student->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-//        if (!$student) {
-//            return $this->createNotFoundException('Student Not Found!');
-//        }
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->merge($student);
-//        $doctrine->flush();
-//        return new JsonResponse(["message" => "Aluno atualizado com sucesso."], 200);
+        $data = $request->request->all();
+
+        $aluno = $this->getDoctrine()->getRepository('App\Entity\Aluno')->find($data['id']);
+
+        $form = $this->createForm(AlunoType::class, $aluno);
+
+        $form->submit($data);
+
+        // $aluno->setCpf($data['cpf']);
+        // $aluno->setAddress($data['address']);
+        // $aluno->setCep($data['cep']);
+        // $aluno->setEmail($data['email']);
+        // $aluno->setPhoneNumber($data['phone_number']);
+        // $aluno->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+
+        if (!$aluno) {
+            return $this->createNotFoundException('Aluno Not Found!');
+        }
+
+        $doctrine = $this->getDoctrine()->getManager();
+
+        $doctrine->merge($aluno);
+
+        $doctrine->flush();
+
+        return new JsonResponse(["message" => "Aluno atualizado com sucesso."], 200);
     }
 
     /**
-     * @param Student $student
+     * @param Aluno $aluno
      * @return JsonResponse
      * @Route("/{id}", name="student_delete", methods={"DELETE"})
      */
     public function deleteAction(Aluno $aluno)
     {
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->remove($student);
-//        $doctrine->flush();
-//        return new JsonResponse(['message' => 'Aluno Removido com Sucesso!'], 200);
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->remove($aluno);
+        $doctrine->flush();
+        return new JsonResponse(['message' => 'Aluno Removido com Sucesso!'], 200);
     }
 }
