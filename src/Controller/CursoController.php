@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Curso;
-use DateTime;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use JMS\Serializer\SerializerBuilder;
 
 /**
  * Class CursoController
@@ -19,10 +18,10 @@ use JMS\Serializer\SerializerBuilder;
 class CursoController extends AbstractController
 {
     /**
+     * @Route("/{id}", methods={"GET"}, name="curso_get")
      * @param Request $request
      * @param null $id
      * @return Response
-     * @Route("/{id}", methods={"GET"}, name="curso_get")
      */
     public function getAction(Request $request, $id = null)
     {
@@ -47,7 +46,9 @@ class CursoController extends AbstractController
     public function postAction(Request $request)
     {
         $data = $request->request->all();
+
         $doctrine = $this->getDoctrine()->getManager();
+
         $course = new Curso();
         $course->setNome($data['nome']);
         $course->setCargaHoraria($data['carga_horaria']);
@@ -90,6 +91,6 @@ class CursoController extends AbstractController
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->remove($curso);
         $doctrine->flush();
-        return new JsonResponse(['message' => 'Usuario Removido com Sucesso!'], 200);
+        return new JsonResponse(['message' => 'Curso Removido com Sucesso!'], 200);
     }
 }
