@@ -65,3 +65,7 @@ Para utilizar este projeto siga os seguintes passos:
 2. execute: `composer install`
 3. execute: `bin/console server:start` ou `php -S localhost:8000 -t public`
 4. acesse a porta exibida, conforme os comandos acima.
+
+### LICENSE
+
+[MIT License](LICENSE)
