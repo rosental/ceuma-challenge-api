@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo; // Doctrine Extension
+use Symfony\Component\Validator\Constraints as Assert; // Adicionando classes para validacao;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CursoRepository")
@@ -21,23 +22,27 @@ class Curso
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
      */
     private $workload;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create") // adiciono a hora automaticamente ao realizar a insercao
+     * @Assert\NotBlank()
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable() // adiciono a hora automaticamente ao realizar a insercao
+     * @Assert\NotBlank()
      */
     private $updated_at;
 
