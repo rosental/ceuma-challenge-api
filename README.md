@@ -61,10 +61,12 @@ A Universidade CEUMA contratou uma empresa terceirizada para criar um sistema de
 Para utilizar este projeto siga os seguintes passos:
 
 1. clone o projeto na sua maquina local
-2. execute: `composer install`
+2. entre no diretório clonado e execute: `composer install`
 3. execute: `bin/console server:start` ou `php -S localhost:8000 -t public`
 4. acesse a porta exibida, conforme os comandos acima.
 
 ### LICENSE
 
 [MIT License](LICENSE)
+
+### [Minhas Notas](minhas-notas.md)
