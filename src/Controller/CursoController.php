@@ -11,86 +11,85 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class CursoController
- * @package App\Controller
- * @Route("/curso")
+ * @Route("/courses")
  */
 class CursoController extends AbstractController
 {
     /**
-     * @Route("/{id}", methods={"GET"}, name="curso_get")
+     * @Route("/{id}", name="course_get", methods={"GET"})
      * @param Request $request
      * @param null $id
      * @return Response
      */
     public function getAction(Request $request, $id = null)
     {
-        $data = $request->request->all();
-        $courseData = $this->getDoctrine()->getRepository('App\Entity\Curso');
-        if (is_null($id)) {
-            $courseData = $courseData->findAll($data);
-        } else {
-            $id = (int) $id;
-            $courseData = $courseData->find($id);
-        }
-        $course = SerializerBuilder::create()->build()->serialize($courseData, 'json');
-        return new Response($course, 200, ['Content-Type' => 'application/json']);
+//        // $data = $request->request->all();
+//        $courseData = $this->getDoctrine()->getRepository('App\Entity\Course');
+//        if (is_null($id)) {
+//            $courseData = $courseData->findAll();
+//        } else {
+//            $id = (int) $id;
+//            $courseData = $courseData->find($id);
+//        }
+//        $course = SerializerBuilder::create()->build()->serialize($courseData, 'json');
+//        return new Response($course, 200, ['Content-Type' => 'application/json']);
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
-     * @Route("", methods={"POST"}, name="curso_post")
+     * @Route("", name="course_save", methods={"POST"})
      */
     public function postAction(Request $request)
     {
-        $data = $request->request->all();
-
-        $doctrine = $this->getDoctrine()->getManager();
-
-        $course = new Curso();
-        $course->setNome($data['nome']);
-        $course->setCargaHoraria($data['carga_horaria']);
-        $course->setCreatedAt(new DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-        $course->setUpdatedAt(new DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-        $doctrine->persist($course);
-        $doctrine->flush();
-        return new JsonResponse(['msg' => 'Curso inserido com sucesso!'], 200);
+//        $data = $request->request->all();
+//        $course = new Course();
+//        // Adicionando Formulario para insercao
+//        $form = $this->createForm(CourseType::class, $course);
+//        $form->submit($data);
+//        // $course->setName($data['name']);
+//        // $course->setWorkload($data['workload']);
+//        // $course->setStudentCollection($data['student-collection']);
+//        // $course->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+//        // $course->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+//        $doctrine = $this->getDoctrine()->getManager();
+//        $doctrine->persist($course); //prepare
+//        $doctrine->flush(); // insert
+//        return new JsonResponse(['msg' => 'Curso inserido com sucesso!'], 200);
     }
 
     /**
      * @param Request $request
      * @return JsonResponse|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @Route("", name="course_update", methods={"PUT"})
      * @throws \Exception
-     * @Route("", methods={"PUT"}, name="curso_put")
      */
     public function putAction(Request $request)
     {
-        $data = $request->request->all();
-        $course = $this->getDoctrine()->getRepository('App\Entity\Curso')->find($data['id']);
-        $course->setNome($data['nome']);
-        $course->setCargaHoraria($data['carga_horaria']);
-        $course->setUpdatedAt(new DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-        if (!$course) {
-            return $this->createNotFoundException('Curso Not Found!');
-        }
-        $doctrine = $this->getDoctrine()->getManager();
-        $doctrine->merge($course);
-        $doctrine->flush();
-        return new JsonResponse(["message" => "Curso atualizado com sucesso."], 200);
+//        $data = $request->request->all();
+//        $course = $this->getDoctrine()->getRepository('App\Entity\Course')->find($data['id']);
+//        if (!$course) {
+//            return $this->createNotFoundException('Course Not Found!');
+//        }
+//        $form = $this->createForm(CourseType::class, $course);
+//        $form->submit($data);
+//        $doctrine = $this->getDoctrine()->getManager();
+//        $doctrine->merge($course);
+//        $doctrine->flush();
+//        return new JsonResponse(["message" => "Curso atualizado com sucesso."], 200);
     }
 
     /**
-     * @param Curso $curso
+     * @param Course $course
      * @return JsonResponse
-     * @Route("/{id}", methods={"DELETE"}, name="curso_delete")
+     * @Route("/{id}", name="course_delete", methods={"DELETE"})
      */
-    public function deleteAction(Curso $curso)
+    public function deleteAction(Curso $course)
     {
-        $doctrine = $this->getDoctrine()->getManager();
-        $doctrine->remove($curso);
-        $doctrine->flush();
-        return new JsonResponse(['message' => 'Curso Removido com Sucesso!'], 200);
+//        $doctrine = $this->getDoctrine()->getManager();
+//        $doctrine->remove($course);
+//        $doctrine->flush();
+//        return new JsonResponse(['message' => 'Curso Removido com Sucesso!'], 200);
     }
 }
