@@ -26,19 +26,18 @@ A Universidade CEUMA contratou uma empresa terceirizada para criar um sistema de
 - [x] Remover alunos;
 - [x] Alterar alunos;
 - [x] Listar os cursos e os alunos que fazem parte deste curso;
-
-- [ ] O sistema deve exportar a lista de cursos e alunos para planilha excel;
 - [x] É desejável que o sistema também seja capaz de prevê erros de usuários no ato do cadastro das informações;
+- [x] É desejável que o sistema contenha um controle de segurança de acesso ao sistema;
 
 - [ ] É desejável que o sistema possa imprimir os dados dos cursos;
-- [x] É desejável que o sistema contenha um controle de segurança de acesso ao sistema;
 - [ ] É desejável que o sistema guarde logs de acesso na base de dados;
+- [ ] O sistema deve exportar a lista de cursos e alunos para planilha excel;
 
 ### Este problema deverá ser resolvido e criado nas seguintes tecnologias:
 
-- [x] Qualquer tecnologia de Backend (Rest);
-- [ ] Qualquer tecnologia de Frontend;
+- [x] Qualquer tecnologia de Backend (REST);
 - [x] Qualquer base de dados relacional;
+- [ ] Qualquer tecnologia de Frontend;
 
 ### O que iremos avaliar:
 
