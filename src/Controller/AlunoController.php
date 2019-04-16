@@ -58,6 +58,10 @@ class AlunoController extends AbstractController
 
         $form->submit($data);
 
+        if (!$form->isValid()) { // isValid pertence ao FormValidation e já tras consigo utilitarios para validacao
+            return new JsonResponse( (string) $form->getErrors(true, false), 200);
+        }
+
         // Forma antiga de fazer as requests
         // $aluno->setName($data['name']);
         // $aluno->setCpf($data['cpf']);

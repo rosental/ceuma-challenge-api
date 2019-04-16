@@ -56,6 +56,10 @@ class CursoController extends AbstractController
         $form = $this->createForm(CursoType::class, $course);
         $form->submit($data);
 
+        if (!$form->isValid()) { // isValid pertence ao FormValidation e já tras consigo utilitarios para validacao
+            return new JsonResponse( (string) $form->getErrors(true, false), 200);
+        }
+
         // $course->setName($data['name']);
         // $course->setWorkload($data['workload']);
         // $course->setStudentCollection($data['student-collection']);
