@@ -22,7 +22,7 @@ class AlunoType extends AbstractType
             // ->add('created_at') // Adicionando automaticamente na entidade pelas confguracoes do Doctrine;
             // ->add('updated_at')
             ->add('courseCollection', EntityType::class, [
-                'class' => 'App\Entity\Course',
+                'class' => 'App\Entity\Curso',
                 'multiple' => true,
                 'expanded' => true,
                 'choice_label' => 'name'
