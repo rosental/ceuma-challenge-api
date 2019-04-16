@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // Doctrine Extension
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CursoRepository")
- * @ORM\Table(name="cursos") //passa pra o banco as tabelas em plural como padrão
+ * @ORM\Table(name="cursos")
  */
 class Curso
 {
@@ -20,73 +22,125 @@ class Curso
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nome;
+    private $name;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $carga_horaria;
+    private $workload;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create") // adiciono a hora automaticamente ao realizar a insercao
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable() // adiciono a hora automaticamente ao realizar a insercao
      */
     private $updated_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Aluno", mappedBy="courseCollection")
+     */
+    private $studentCollection;
+
+    public function __construct()
+    {
+        $this->studentCollection = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNome(): ?string
+    public function getName(): ?string
     {
-        return $this->nome;
+        return $this->name;
     }
 
-    public function setNome(string $nome): self
+    public function setName(string $name): self
     {
-        $this->nome = $nome;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getCargaHoraria(): ?int
+    public function getWorkload(): ?int
     {
-        return $this->carga_horaria;
+        return $this->workload;
     }
 
-    public function setCargaHoraria(int $carga_horaria): self
+    public function setWorkload(int $workload): self
     {
-        $this->carga_horaria = $carga_horaria;
+        $this->workload = $workload;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Curso
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Curso
+     */
+    public function setUpdatedAt($updatedAt)
     {
-        $this->created_at = $created_at;
+        $this->updated_at = $updatedAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    /**
+     * @return mixed
+     */
+    public function getStudentCollection()
     {
-        $this->updated_at = $updated_at;
+        return $this->studentCollection;
+    }
 
-        return $this;
+    /**
+     * @param mixed $studentCollection
+     */
+    public function setStudentCollection($studentCollection): void
+    {
+        $this->studentCollection = $studentCollection;
     }
 }
