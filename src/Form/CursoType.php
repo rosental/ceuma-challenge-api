@@ -14,9 +14,6 @@ class CursoType extends AbstractType
         $builder
             ->add('name')
             ->add('workload')
-            ->add('created_at')
-            ->add('updated_at')
-            ->add('studentCollection')
         ;
     }
 
