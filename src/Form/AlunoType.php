@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Aluno;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,12 @@ class AlunoType extends AbstractType
             ->add('phone_number')
             // ->add('created_at') // Adicionando automaticamente na entidade pelas confguracoes do Doctrine;
             // ->add('updated_at')
-            ->add('courseCollection')
+            ->add('courseCollection', EntityType::class, [
+                'class' => 'App\Entity\Course',
+                'multiple' => true,
+                'expanded' => true,
+                'choice_label' => 'name'
+            ])
         ;
     }
 
