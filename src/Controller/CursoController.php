@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Curso;
+use App\Form\CursoType;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,16 +24,20 @@ class CursoController extends AbstractController
      */
     public function getAction(Request $request, $id = null)
     {
-//        // $data = $request->request->all();
-//        $courseData = $this->getDoctrine()->getRepository('App\Entity\Course');
-//        if (is_null($id)) {
-//            $courseData = $courseData->findAll();
-//        } else {
-//            $id = (int) $id;
-//            $courseData = $courseData->find($id);
-//        }
-//        $course = SerializerBuilder::create()->build()->serialize($courseData, 'json');
-//        return new Response($course, 200, ['Content-Type' => 'application/json']);
+        // $data = $request->request->all();
+
+        $courseData = $this->getDoctrine()->getRepository('App\Entity\Curso');
+
+        if (is_null($id)) {
+            $courseData = $courseData->findAll();
+        } else {
+            $id = (int) $id;
+            $courseData = $courseData->find($id);
+        }
+
+        $course = SerializerBuilder::create()->build()->serialize($courseData, 'json');
+
+        return new Response($course, 200, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -43,20 +48,25 @@ class CursoController extends AbstractController
      */
     public function postAction(Request $request)
     {
-//        $data = $request->request->all();
-//        $course = new Course();
-//        // Adicionando Formulario para insercao
-//        $form = $this->createForm(CourseType::class, $course);
-//        $form->submit($data);
-//        // $course->setName($data['name']);
-//        // $course->setWorkload($data['workload']);
-//        // $course->setStudentCollection($data['student-collection']);
-//        // $course->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-//        // $course->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->persist($course); //prepare
-//        $doctrine->flush(); // insert
-//        return new JsonResponse(['msg' => 'Curso inserido com sucesso!'], 200);
+        $data = $request->request->all();
+
+        $course = new Curso();
+
+        // Adicionando Formulario para insercao
+        $form = $this->createForm(CursoType::class, $course);
+        $form->submit($data);
+
+        // $course->setName($data['name']);
+        // $course->setWorkload($data['workload']);
+        // $course->setStudentCollection($data['student-collection']);
+        // $course->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+        // $course->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->persist($course); //prepare
+        $doctrine->flush(); // insert
+
+        return new JsonResponse(['msg' => 'Curso inserido com sucesso!'], 200);
     }
 
     /**
@@ -67,29 +77,34 @@ class CursoController extends AbstractController
      */
     public function putAction(Request $request)
     {
-//        $data = $request->request->all();
-//        $course = $this->getDoctrine()->getRepository('App\Entity\Course')->find($data['id']);
-//        if (!$course) {
-//            return $this->createNotFoundException('Course Not Found!');
-//        }
-//        $form = $this->createForm(CourseType::class, $course);
-//        $form->submit($data);
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->merge($course);
-//        $doctrine->flush();
-//        return new JsonResponse(["message" => "Curso atualizado com sucesso."], 200);
+        $data = $request->request->all();
+
+        $course = $this->getDoctrine()->getRepository('App\Entity\Curso')->find($data['id']);
+
+        if (!$course) {
+            return $this->createNotFoundException('Curso Not Found!');
+        }
+
+        $form = $this->createForm(CursoType::class, $course);
+        $form->submit($data);
+
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->merge($course);
+        $doctrine->flush();
+
+        return new JsonResponse(["message" => "Curso atualizado com sucesso."], 200);
     }
 
     /**
-     * @param Course $course
+     * @param Curso $curso
      * @return JsonResponse
      * @Route("/{id}", name="course_delete", methods={"DELETE"})
      */
-    public function deleteAction(Curso $course)
+    public function deleteAction(Curso $curso)
     {
-//        $doctrine = $this->getDoctrine()->getManager();
-//        $doctrine->remove($course);
-//        $doctrine->flush();
-//        return new JsonResponse(['message' => 'Curso Removido com Sucesso!'], 200);
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->remove($curso);
+        $doctrine->flush();
+        return new JsonResponse(['message' => 'Curso Removido com Sucesso!'], 200);
     }
 }
