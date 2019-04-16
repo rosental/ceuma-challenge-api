@@ -18,8 +18,8 @@ class AlunoType extends AbstractType
             ->add('cep')
             ->add('email')
             ->add('phone_number')
-            ->add('created_at')
-            ->add('updated_at')
+            // ->add('created_at') // Adicionando automaticamente na entidade pelas confguracoes do Doctrine;
+            // ->add('updated_at')
             ->add('courseCollection')
         ;
     }

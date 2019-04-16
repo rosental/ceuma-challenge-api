@@ -179,6 +179,7 @@ class Aluno
         if ($this->courseCollection->contains($courseCollection)) {
             return;
         }
+
         $this->courseCollection->add($courseCollection);
     }
 }
